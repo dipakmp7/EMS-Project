@@ -42,7 +42,7 @@ public class EmployeeController {
 	
 	//build get employee by id rest API
 	@GetMapping("{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id)
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) //pathvariable means it gets id from url
 	{
 		Employee emp = employeeDao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee not Found"));
 		return ResponseEntity.ok(emp);

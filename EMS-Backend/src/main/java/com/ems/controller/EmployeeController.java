@@ -18,37 +18,55 @@ import com.ems.dao.EmployeeDao;
 import com.ems.entity.Employee;
 import com.ems.exception.ResourceNotFoundException;
 
-@CrossOrigin(origins = "http://localhost:3000/")
+@CrossOrigin(origins = "http://localhost:3000/")  // is used to handle Cross-Origin Resource Sharing (CORS) by specifying the allowed origins.
 //@CrossOrigin("*")
-@RestController
-@RequestMapping ("/employees")
+@RestController                   // indicates that this class is a controller that handles HTTP requests.
+@RequestMapping ("/employees")    //  specifies the base URL for all the request mappings in this class.
 public class EmployeeController {
 	
-	@Autowired
-	private EmployeeDao employeeDao;
+	@Autowired          // is used for automatic dependency injection of the EmployeeDao bean, which is responsible for data access operations related to employees.
+	private EmployeeDao employeeDao;  // if we want to create the reference or object of any class in controller we have @Autowired annotation
 	
+	
+/*	This method is mapped to handle HTTP GET requests to the base URL /employees. 
+	It retrieves and returns a list of all employees using the findAll method of the employeeDao.
+*/
 	@GetMapping
 	public List<Employee> getAllEmployee()
 	{
 		return employeeDao.findAll();
 	}
 	
-	//build create employee rest API
+	
+/*
+  This method is mapped to handle HTTP POST requests to the base URL /employees. 
+  It creates a new employee by accepting a JSON request body (@RequestBody) and saves it using the save method of employeeDao.
+*/
 	@PostMapping
 	public Employee saveEmployee(@RequestBody Employee emp)
 	{
 		return employeeDao.save(emp);
 	}
 	
-	//build get employee by id rest API
+	
+/*
+ This method is mapped to handle HTTP GET requests with a specific employee ID. 
+ It retrieves an employee by ID using the findById method of employeeDao. 
+ If the employee is not found, it throws a ResourceNotFoundException, which results in an HTTP 404 response.
+*/
 	@GetMapping("{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id) //pathvariable means it gets id from url
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id)  //pathvariable means it gets id from url
 	{
 		Employee emp = employeeDao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee not Found"));
 		return ResponseEntity.ok(emp);
 	}
 	
-	//build update employee rest API
+/*
+	This method is mapped to handle HTTP PUT requests with a specific employee ID. 
+	It updates the details of an existing employee based on the provided request body (empDtls). 
+	It throws a ResourceNotFoundException if the employee with the specified ID is not found.
+*/	
+
 	@PutMapping("{id}")
 	public ResponseEntity<Employee> updateEmployee(@RequestBody Employee empDtls,@PathVariable int id)
 	{
@@ -62,6 +80,13 @@ public class EmployeeController {
 		
 		return ResponseEntity.ok(updateEmp); 
 	}
+	
+/*
+	This method is mapped to handle HTTP DELETE requests with a specific employee ID. 
+	It deletes an employee by ID using the deleteById method of employeeDao. 
+	If the employee is not found, it throws a ResourceNotFoundException. 
+	The response is a message indicating that the employee has been deleted.
+*/
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity<?> deleteEmployee(@PathVariable int id)

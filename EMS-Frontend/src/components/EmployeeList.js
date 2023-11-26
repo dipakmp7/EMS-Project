@@ -10,6 +10,7 @@ const EmployeeList = () => {
     useEffect(() => {
 
         // put the below data in getAllEmps() bcoz after deleting we write same logic in deletEmp also to avoid that i write one common method 
+        
         // EmployeeServices.getAllEmployees().then((response) => {
         //     setemployees(response.data);
         //     // console.log(response.data);

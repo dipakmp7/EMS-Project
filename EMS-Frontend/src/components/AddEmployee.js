@@ -57,6 +57,7 @@ const AddEmployee = () => {
     },[])
 
     //it is common page for add or update employee by title() method 
+    // title() returns a dynamic heading based on the presence of id.
     const title = () =>{
         if(id)
         {

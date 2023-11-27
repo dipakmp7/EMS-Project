@@ -115,7 +115,8 @@ const AddEmployee = () => {
                                     </input>
 <br />
                                     <button className="btn btn-success" onClick={(e) => saveOrUpdateEmployee(e)}>Save</button>
-                                    <Link to="/employees" className="btn btn-danger">Cancel</Link>
+                                    <Link to="/employees" className="btn btn-danger">Cancel</Link>  
+                                    {/* //the Link component is used to create navigation links. It prevents the whole page from reloading when the link is clicked and instead updates the URL and renders the appropriate component based on the specified route. */}
                                 </div>
                             </form>
                         </div>

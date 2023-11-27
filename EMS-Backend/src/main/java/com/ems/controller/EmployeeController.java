@@ -43,7 +43,7 @@ public class EmployeeController {
   It creates a new employee by accepting a JSON request body (@RequestBody) and saves it using the save method of employeeDao.
 */
 	@PostMapping
-	public Employee saveEmployee(@RequestBody Employee emp)
+	public Employee saveEmployee(@RequestBody Employee emp)   // is used for extracting entire request body
 	{
 		return employeeDao.save(emp);
 	}
@@ -55,7 +55,7 @@ public class EmployeeController {
  If the employee is not found, it throws a ResourceNotFoundException, which results in an HTTP 404 response.
 */
 	@GetMapping("{id}")
-	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id)  //pathvariable means it gets id from url
+	public ResponseEntity<Employee> getEmployeeById(@PathVariable int id)  //pathvariable means it gets id from url  and it gets the values from url
 	{
 		Employee emp = employeeDao.findById(id).orElseThrow(()-> new ResourceNotFoundException("Employee not Found"));
 		return ResponseEntity.ok(emp);
